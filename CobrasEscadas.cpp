@@ -1,25 +1,34 @@
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
+
 #define rows 20
 #define col 21
 
-void defEspaco(char espaco[][col]);
-void jogadores(char espaco[][col], int player);
+struct posicaojogador{
+	int x,y;
+};
 
+void defEspaco(char espaco[][col]);
+struct posicaojogador posicao_inicial_jogador(int inicio);
 int main(){
 	char espaco[rows][col];
-	int player1=1, 
-	    player2, 
-	    player3, 
-	    player4;
+	struct posicaojogador jogador[4];
 
+	//Posicao inicial dos jogadores
+	jogador[0] = posicao_inicial_jogador(0);
+	jogador[1] = posicao_inicial_jogador(0);
+	jogador[2] = posicao_inicial_jogador(0);
+	jogador[3] = posicao_inicial_jogador(0);
+	
+	//limpando e definindo o espaco
 	defEspaco(espaco);
-	jogadores(espaco, player1);
-
+	
 return 0;
 }
 void defEspaco(char espaco[][col]){
+	
 	for(int x=0;x<rows;x++)
 		for(int y=0;y<col;y++)
 			espaco[x][y] = '0';
@@ -29,6 +38,7 @@ void defEspaco(char espaco[][col]){
 	for(int y=0;y<col;y+=2)
 		for(int x=0;x<rows;x++)
 			espaco[x][y] = '|';	
+	//Os proximos comandos podem ser removidos
 	for(int x=0;x<rows;x++){
 		for(int y=0;y<col;y++)
 			if(espaco[x][y] == '0')
@@ -38,6 +48,11 @@ void defEspaco(char espaco[][col]){
 		printf("\n");
 	}
 }
-void jogadores(char espaco[][col], int jogador){
-return;	
+struct posicaojogador posicao_inicial_jogador(int inicio){
+	struct posicaojogador jogador;
+	
+		jogador.x = inicio;
+		jogador.y = inicio;
+
+	return jogador;
 }
