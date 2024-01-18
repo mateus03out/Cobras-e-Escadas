@@ -1,16 +1,25 @@
-#include <stdio.h>
+#include <iostream>
 
+using namespace std;
 #define rows 20
 #define col 21
-void defineEspaco(char espaco[][col]);
+
+void defEspaco(char espaco[][col]);
+void jogadores(char espaco[][col], int player);
 
 int main(){
 	char espaco[rows][col];
+	int player1=1, 
+	    player2, 
+	    player3, 
+	    player4;
 
-	defineEspaco(espaco);
+	defEspaco(espaco);
+	jogadores(espaco, player1);
+
 return 0;
 }
-void defineEspaco(char espaco[][col]){
+void defEspaco(char espaco[][col]){
 	for(int x=0;x<rows;x++)
 		for(int y=0;y<col;y++)
 			espaco[x][y] = '0';
@@ -23,10 +32,12 @@ void defineEspaco(char espaco[][col]){
 	for(int x=0;x<rows;x++){
 		for(int y=0;y<col;y++)
 			if(espaco[x][y] == '0')
-				printf(" ");
+				cout << " ";
 			else
-				printf("%-20c",espaco[x][y]);
-			
+				cout << espaco[x][y];		
 		printf("\n");
 	}
+}
+void jogadores(char espaco[][col], int jogador){
+return;	
 }
