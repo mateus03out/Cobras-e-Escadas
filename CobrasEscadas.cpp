@@ -29,10 +29,14 @@ int main(){
 	
 	for(int i=0;i<rows;i++){
 		for(int j=0;j<col;j++)
-			if(espaco[i][j] == '0')
+			if(espaco[i][j] == 'M')
 				printf(" ");
-			else
-				printf("%c",espaco[i][j]);
+			else{
+				if(espaco[i][j] == 'E')
+					printf("\033[1;32m%c\033[1;32m",espaco[i][j]);
+				if(espaco[i][j] != 'E')
+					printf("\033[0m%c\033[0m",espaco[i][j]);
+			}
 		printf("\n");
 	}
 	
@@ -44,7 +48,7 @@ void def_espaco(char espaco[][col]){
 	//'Limpando' a matriz
 	for(int i=0;i<rows;i++)
 		for(int j=0;j<col;j++)
-			espaco[i][j] = '0';
+			espaco[i][j] = 'M';
 	//Definindo os espacos
 	for(int i=1;i<rows;i+=2)
 		for(int j=0;j<col;j++)
@@ -65,6 +69,20 @@ void def_espaco(char espaco[][col]){
 		codeASCII++;
 	}
 	espaco[0][2] = 'D';
+	//Numerando as casas
+	for(int i=2;i<rows;i+=2){
+		codeASCII = 48;
+		for(int j=5;j<col;j+=5){
+			espaco[i][j] = codeASCII;
+			codeASCII++;
+		}
+	}
+	codeASCII = 49;
+	for(int i=18;i>0;i-=2){
+		for(int j=4;j<col;j+=5)
+			espaco[i][j] = codeASCII;
+		codeASCII++;
+	}
 }
 struct posicaojogador posicao_inicial_jogador(){
 	struct posicaojogador jogador;
@@ -75,6 +93,13 @@ struct posicaojogador posicao_inicial_jogador(){
 	return jogador;
 }
 void def_cobras_escadas(char espaco[][col]){
-	//Escada 3 para 37
+	//Escada 2 para 25
 	espaco[20][12] = 'E';
+	espaco[16][27] = 'E';
+	//Escada 4 par	a 14
+	espaco[20][22] = 'E';
+	espaco[18][22] = 'E';
+	//Escada 19 para 46
+	espaco[18][47] = 'E';
+	espaco[12][32] = 'E';
 }
