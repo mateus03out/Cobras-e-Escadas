@@ -1,44 +1,36 @@
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
 #define rows 22
 #define col 52
 
-struct posicaojogador{
+struct coordenadas{
 	int x,y;
 };
-
 void def_espaco(char espaco[][col]);
-struct posicaojogador posicao_inicial_jogador();
-void def_cobras_escadas(char espaco[][col]);
+void posicao_inicial_jogador(coordenadas jogador[4]);
+void gera_cobras_escadas(char espaco[][col]);
+void mostra_matriz(char espaco[][col]);
 
 int main(){
+	
+	srand(time(NULL));
+
 	char espaco[rows][col];
-	struct posicaojogador jogador[4];
+	struct coordenadas jogador[4];
 
 	//Posicao inicial dos jogadores
-	jogador[0] = posicao_inicial_jogador();
-	jogador[1] = posicao_inicial_jogador();
-	jogador[2] = posicao_inicial_jogador();
-	jogador[3] = posicao_inicial_jogador();	
+	posicao_inicial_jogador(jogador);
 	//limpando e definindo o espaco
 	def_espaco(espaco);
-	def_cobras_escadas(espaco);
-	
-	for(int i=0;i<rows;i++){
-		for(int j=0;j<col;j++)
-			if(espaco[i][j] == 'M')
-				printf(" ");
-			else{
-				if(espaco[i][j] == 'E')
-					printf("\033[1;32m%c\033[1;32m",espaco[i][j]);
-				if(espaco[i][j] != 'E')
-					printf("\033[0m%c\033[0m",espaco[i][j]);
-			}
-		printf("\n");
-	}
+	//gera escadas e cobras
+	gera_cobras_escadas(espaco);
+	//mostra a matriz espaco
+	mostra_matriz(espaco);
 	
 return 0;
 }
@@ -84,22 +76,38 @@ void def_espaco(char espaco[][col]){
 		codeASCII++;
 	}
 }
-struct posicaojogador posicao_inicial_jogador(){
-	struct posicaojogador jogador;
+void posicao_inicial_jogador(coordenadas jogador[4]){
 	
-		jogador.x = 21;
-		jogador.y = 2;
-
-	return jogador;
+	for(int i=0;i<4;i++){
+		jogador[i].x = 21;
+		jogador[i].y = 2;
+	}
 }
-void def_cobras_escadas(char espaco[][col]){
-	//Escada 2 para 25
-	espaco[20][12] = 'E';
-	espaco[16][27] = 'E';
-	//Escada 4 par	a 14
-	espaco[20][22] = 'E';
-	espaco[18][22] = 'E';
-	//Escada 19 para 46
-	espaco[18][47] = 'E';
-	espaco[12][32] = 'E';
+void gera_cobras_escadas(char espaco[][col]){
+	struct coordenadas cobras[10], escadas[6];
+
+	for(int i=0;i<10;i++){
+		do{
+			cobras[i].x = 2*(rand() % 10 + 1);
+			cobras[i].y = (5*(rand() % 10+1))+2;
+		}while(cobras[i].x == cobras[i].y);
+
+}	for(int i=0;i<10;i++)
+		espaco[cobras[i].x][cobras[i].y] = 'E';
+	
+}
+void mostra_matriz(char espaco[][col]){
+	int cont=0;
+	for(int i=0;i<rows;i++){
+		for(int j=0;j<col;j++){
+			if(espaco[i][j] == 'M')
+				printf(" ");
+			else
+				printf("%c",espaco[i][j]);
+		if(espaco[i][j] == 'E')
+			cont++;
+		}
+		printf("\n");
+	}
+	printf("\n%d\n",cont);
 }
