@@ -89,7 +89,7 @@ void gera_cobras_escadas(char espaco[][col]){
 	for(int i=0;i<10;i++){
 		do{
 			cobras[i].x = 2*(rand() % 10 + 1);
-			cobras[i].y = (5*(rand() % 10+1))+2;
+			cobras[i].y = (rand() % 10+1)*5-3;
 		}while(cobras[i].x == cobras[i].y);
 
 }	for(int i=0;i<10;i++)
